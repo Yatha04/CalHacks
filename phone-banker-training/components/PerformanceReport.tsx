@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { PerformanceMetrics } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
-import { getScoreColor } from "@/lib/utils";
-import { CheckCircle, AlertCircle, TrendingUp, Home } from "lucide-react";
+import { Home, X } from "lucide-react";
 
 interface PerformanceReportProps {
   metrics: PerformanceMetrics;
@@ -17,109 +17,40 @@ export function PerformanceReport({
   voterName,
   onContinue,
 }: PerformanceReportProps) {
-  const metricsList = [
-    { name: "Confidence", value: metrics.confidence },
-    { name: "Enthusiasm", value: metrics.enthusiasm },
-    { name: "Clarity", value: metrics.clarity },
-    { name: "Persuasiveness", value: metrics.persuasiveness },
-    { name: "Empathy", value: metrics.empathy },
-  ];
+  const [showPositiveNote, setShowPositiveNote] = useState(true);
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Overall Score */}
-      <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200">
-        <CardContent className="pt-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Call Complete!</h2>
-            <p className="text-gray-600 mb-6">Voter: {voterName}</p>
-            <div className={`text-6xl font-bold mb-2 ${getScoreColor(metrics.overallScore)}`}>
-              {metrics.overallScore}
-            </div>
-            <div className="text-lg text-gray-600">Overall Performance Score</div>
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* Detailed Metrics */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-black">Performance Breakdown</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {metricsList.map((metric) => (
-              <div key={metric.name}>
-                <div className="flex justify-between mb-2">
-                  <span className="font-medium">{metric.name}</span>
-                  <span className={`font-bold ${getScoreColor(metric.value)}`}>
-                    {metric.value}
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                  <div
-                    className={`h-3 rounded-full transition-all ${
-                      metric.value >= 80
-                        ? "bg-green-500"
-                        : metric.value >= 60
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    }`}
-                    data-width={metric.value}
-                    style={{ width: `${metric.value}%` } as React.CSSProperties}
-                  />
+
+
+
+
+
+      {/* Positive Note */}
+      {showPositiveNote && (
+        <Card className="bg-green-50 border-green-200">
+          <CardContent className="pt-6">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0 mt-1"></div>
+                <div>
+                  <h3 className="font-bold text-green-800 text-lg">Great Job!</h3>
+                  <p className="text-green-700 text-sm">
+                    You completed your phone banking practice session. Keep up the excellent work!
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Strengths */}
-      {metrics.strengths.length > 0 && (
-        <Card className="border-green-200 bg-green-50">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-green-800">
-              <CheckCircle className="w-5 h-5" />
-              Strengths
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {metrics.strengths.map((strength, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-green-900">
-                  <span className="text-green-600 mt-1">✓</span>
-                  <span>{strength}</span>
-                </li>
-              ))}
-            </ul>
+              <button
+                onClick={() => setShowPositiveNote(false)}
+                className="text-green-600 hover:text-green-800 transition-colors p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </CardContent>
         </Card>
       )}
-
-      {/* Areas for Improvement */}
-      {metrics.areasForImprovement.length > 0 && (
-        <Card className="border-yellow-200 bg-yellow-50">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-yellow-800">
-              <TrendingUp className="w-5 h-5" />
-              Areas for Improvement
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {metrics.areasForImprovement.map((area, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-yellow-900">
-                  <span className="text-yellow-600 mt-1">→</span>
-                  <span>{area}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-      )}
-
-
 
       {/* Call Transcript */}
       {metrics.transcript && (
@@ -128,13 +59,13 @@ export function PerformanceReport({
             <CardTitle className="text-black">Call Transcript</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="bg-gray-50 rounded-lg p-4 max-h-96 overflow-y-auto space-y-2">
+            <div className="bg-gray-50 rounded-lg p-6 max-h-[500px] overflow-y-auto space-y-3">
               {metrics.transcript.split("\n").map((line, idx) => (
                 <div
                   key={idx}
-                  className={`text-sm ${
+                  className={`text-base ${
                     line.startsWith("Volunteer:")
-                      ? "text-blue-700 font-medium"
+                      ? "text-blue-700 font-semibold"
                       : "text-gray-700"
                   }`}
                 >
