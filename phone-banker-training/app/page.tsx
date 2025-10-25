@@ -75,7 +75,7 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-black text-center mb-12">How It Works</h2>
           <div className="space-y-6">
             <div className="flex gap-4 items-start">
-              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0 shadow-[0_4px_0_0_rgba(0,0,0,1)]">
                 1
               </div>
               <div>
@@ -91,7 +91,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex gap-4 items-start">
-              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0 shadow-[0_4px_0_0_rgba(0,0,0,1)]">
                 2
               </div>
               <div>
@@ -107,7 +107,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex gap-4 items-start">
-              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0 shadow-[0_4px_0_0_rgba(0,0,0,1)]">
                 3
               </div>
               <div>
@@ -123,7 +123,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex gap-4 items-start">
-              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0 shadow-[0_4px_0_0_rgba(0,0,0,1)]">
                 4
               </div>
               <div>

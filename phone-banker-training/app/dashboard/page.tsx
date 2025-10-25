@@ -49,9 +49,9 @@ export default function DashboardPage() {
       {stats.totalCalls === 0 && (
         <div className="bg-white">
           <div className="container mx-auto px-4 py-6">
-            <Card className="max-w-14xl mx-auto bg-blue-50 border-blue-200">
+            <Card className="max-w-14xl mx-auto border-2 border-black hover:border-blue-600 transition-all shadow-[0_8px_0_0_rgba(0,0,0,1)] hover:shadow-[0_12px_0_0_rgba(59,130,246,1)] bg-white">
               <CardHeader>
-                <CardTitle className="text-black">👋 Welcome! Ready to get started?</CardTitle>
+                <CardTitle className="text-black font-bold text-xl">👋 Welcome! Ready to get started?</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-700">
@@ -89,55 +89,55 @@ export default function DashboardPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Stats Overview */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="border-2 border-black hover:border-blue-600 transition-all shadow-[0_8px_0_0_rgba(0,0,0,1)] hover:shadow-[0_12px_0_0_rgba(59,130,246,1)] bg-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-black flex items-center gap-2">
-                <PhoneIcon className="w-4 h-4" />
+                <PhoneIcon className="w-4 h-4 text-blue-600" />
                 Total Calls
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{stats.totalCalls}</div>
+              <div className="text-3xl font-bold text-black">{stats.totalCalls}</div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-2 border-black hover:border-blue-600 transition-all shadow-[0_8px_0_0_rgba(0,0,0,1)] hover:shadow-[0_12px_0_0_rgba(59,130,246,1)] bg-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-black flex items-center gap-2">
-                <TrendingUp className="w-4 h-4" />
+                <TrendingUp className="w-4 h-4 text-blue-600" />
                 Average Score
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">
+              <div className="text-3xl font-bold text-black">
                 {stats.averageScore > 0 ? stats.averageScore : "--"}
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-2 border-black hover:border-blue-600 transition-all shadow-[0_8px_0_0_rgba(0,0,0,1)] hover:shadow-[0_12px_0_0_rgba(59,130,246,1)] bg-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-black flex items-center gap-2">
-                <Trophy className="w-4 h-4" />
+                <Trophy className="w-4 h-4 text-blue-600" />
                 Easy
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-green-600">
+              <div className="text-3xl font-bold text-blue-600">
                 {stats.easyCompleted}
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-2 border-black hover:border-blue-600 transition-all shadow-[0_8px_0_0_rgba(0,0,0,1)] hover:shadow-[0_12px_0_0_rgba(59,130,246,1)] bg-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-black flex items-center gap-2">
-                <Trophy className="w-4 h-4" />
+                <Trophy className="w-4 h-4 text-blue-600" />
                 Med/Hard
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-yellow-600">
+              <div className="text-3xl font-bold text-blue-600">
                 {stats.mediumCompleted}/{stats.hardCompleted}
               </div>
             </CardContent>
@@ -149,6 +149,11 @@ export default function DashboardPage() {
           <Button
             variant={selectedDifficulty === "all" ? "default" : "outline"}
             onClick={() => setSelectedDifficulty("all")}
+            className={
+              selectedDifficulty === "all"
+                ? "bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+                : "bg-white hover:bg-blue-50 text-black border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+            }
           >
             All Profiles
           </Button>
@@ -157,10 +162,8 @@ export default function DashboardPage() {
             onClick={() => setSelectedDifficulty("easy")}
             className={
               selectedDifficulty === "easy"
-                ? "bg-green-600 hover:bg-green-700 text-white"
-                : selectedDifficulty === "all"
-                ? "bg-white hover:bg-gray-800 text-black border-black"
-                : ""
+                ? "bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+                : "bg-white hover:bg-blue-50 text-black border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
             }
           >
             Easy
@@ -170,10 +173,8 @@ export default function DashboardPage() {
             onClick={() => setSelectedDifficulty("medium")}
             className={
               selectedDifficulty === "medium"
-                ? "bg-yellow-600 hover:bg-yellow-700 text-white"
-                : selectedDifficulty === "all"
-                ? "bg-white hover:bg-gray-800 text-black border-black"
-                : ""
+                ? "bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+                : "bg-white hover:bg-blue-50 text-black border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
             }
           >
             Medium
@@ -183,10 +184,8 @@ export default function DashboardPage() {
             onClick={() => setSelectedDifficulty("hard")}
             className={
               selectedDifficulty === "hard"
-                ? "bg-red-600 hover:bg-red-700 text-white"
-                : selectedDifficulty === "all"
-                ? "bg-white hover:bg-gray-800 text-black border-black"
-                : ""
+                ? "bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+                : "bg-white hover:bg-blue-50 text-black border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
             }
           >
             Hard
@@ -194,54 +193,54 @@ export default function DashboardPage() {
         </div>
 
         {/* Voter Profiles List */}
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-lg border-2 border-black shadow-[0_8px_0_0_rgba(0,0,0,1)] overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-blue-50 border-b-2 border-black">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">
                   Voter Profile
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">
                   Location
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">
                   Difficulty
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">
                   Status
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y-2 divide-black">
               {filteredProfiles.map((profile, index) => (
                 <tr
                   key={profile.id}
                   onClick={() => handleSelectProfile(profile.id)}
-                  className="hover:bg-gray-50 cursor-pointer transition-colors"
+                  className="hover:bg-blue-50 cursor-pointer transition-colors"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <span className="text-gray-400 text-sm mr-3">
+                      <span className="text-blue-600 text-sm mr-3 font-bold">
                         {index + 1}.
                       </span>
-                      <span className="text-sm font-medium text-black">
+                      <span className="text-sm font-bold text-black">
                         {profile.name}
                       </span>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-700">
                       {profile.location}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
-                      className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full border-2 border-black shadow-[0_2px_0_0_rgba(0,0,0,1)] ${
                         profile.difficulty === "easy"
-                          ? "bg-green-100 text-green-800"
+                          ? "bg-blue-100 text-blue-800"
                           : profile.difficulty === "medium"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-red-100 text-red-800"
+                          ? "bg-blue-200 text-blue-900"
+                          : "bg-blue-300 text-blue-900"
                       }`}
                     >
                       {profile.difficulty === "easy"
@@ -256,7 +255,7 @@ export default function DashboardPage() {
                       {[...Array(6)].map((_, i) => (
                         <div
                           key={i}
-                          className="w-1 h-4 bg-gray-200 rounded"
+                          className="w-1 h-4 bg-blue-200 rounded border border-black"
                         ></div>
                       ))}
                     </div>
