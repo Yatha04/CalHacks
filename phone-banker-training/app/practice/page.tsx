@@ -50,6 +50,7 @@ function PracticeContent() {
       id: crypto.randomUUID(),
       sessionId: crypto.randomUUID(),
       ...metrics,
+      transcript,
       createdAt: new Date(),
     };
 

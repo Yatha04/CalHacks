@@ -43,6 +43,7 @@ export interface PerformanceMetrics {
   areasForImprovement: string[];
   keyMoments: KeyMoment[];
   sentiment: "positive" | "neutral" | "negative";
+  transcript?: string;
   createdAt: Date;
 }
 

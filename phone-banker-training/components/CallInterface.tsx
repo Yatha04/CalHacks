@@ -22,6 +22,7 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
   const [transcript, setTranscript] = useState<string[]>([]);
   const vapiRef = useRef<Vapi | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const conversationRef = useRef<any[]>([]);
 
   useEffect(() => {
     // Initialize Vapi client
@@ -37,18 +38,39 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
       vapiRef.current.on("call-end", () => {
         setCallStatus("ended");
         stopTimer();
-        const fullTranscript = transcript.join("\n");
-        onCallEnd(fullTranscript, duration);
+        
+        console.log("Call ended. Building transcript from conversation...");
+        console.log("Conversation messages:", conversationRef.current);
+        
+        // Build transcript from conversation messages (skip first element which is system prompt)
+        const fullTranscript = conversationRef.current
+          .slice(1) // Skip index 0 (system prompt)
+          .map((msg: any) => {
+            const speaker = msg.role === "user" ? "Volunteer" : "Voter";
+            return `${speaker}: ${msg.content || msg.message || ""}`;
+          })
+          .filter(line => line.trim().length > 3) // Remove empty lines
+          .join("\n");
+        
+        console.log("Final transcript:", fullTranscript);
+        
+        const finalTranscript = fullTranscript || "No transcript available.";
+        onCallEnd(finalTranscript, duration);
       });
 
       vapiRef.current.on("message", (message: unknown) => {
-        // Handle transcript updates
-        const msg = message as { type: string; transcript?: string; role?: string };
-        if (msg.type === "transcript" && msg.transcript) {
-          setTranscript((prev) => [
-            ...prev,
-            `${msg.role === "user" ? "Volunteer" : "Voter"}: ${msg.transcript}`,
-          ]);
+        const msg = message as any;
+        
+        // Handle conversation-update messages - this contains the full conversation
+        if (msg.type === "conversation-update" && msg.conversation) {
+          console.log("Conversation update - messages count:", msg.conversation.length);
+          conversationRef.current = msg.conversation;
+        }
+        
+        // Also handle individual transcript messages for real-time display
+        if (msg.type === "transcript" && msg.transcript && msg.transcriptType === "final") {
+          const speaker = msg.role === "user" ? "Volunteer" : "Voter";
+          setTranscript((prev) => [...prev, `${speaker}: ${msg.transcript}`]);
         }
       });
 
@@ -85,8 +107,13 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
   const handleStartCall = async () => {
     setCallStatus("calling");
     try {
-      const assistantConfig = createVoterAssistantConfig(profile);
-      await vapiRef.current?.start(assistantConfig);
+      // Use pre-configured assistant if available, otherwise create inline config
+      if (profile.vapiAssistantId) {
+        await vapiRef.current?.start(profile.vapiAssistantId);
+      } else {
+        const assistantConfig = createVoterAssistantConfig(profile);
+        await vapiRef.current?.start(assistantConfig);
+      }
     } catch (error) {
       console.error("Failed to start call:", error);
       setCallStatus("idle");
@@ -189,31 +216,6 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
           </div>
         </CardContent>
       </Card>
-
-      {/* Live Transcript */}
-      {transcript.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-black">Live Transcript</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-gray-50 rounded-lg p-4 max-h-96 overflow-y-auto space-y-2">
-              {transcript.map((line, idx) => (
-                <div
-                  key={idx}
-                  className={`text-sm ${
-                    line.startsWith("Volunteer:")
-                      ? "text-blue-700 font-medium"
-                      : "text-gray-700"
-                  }`}
-                >
-                  {line}
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
 
       {/* Tips */}
       <Card className="bg-blue-50 border-blue-200">

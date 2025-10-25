@@ -23,6 +23,7 @@ export const voterProfiles: VoterProfile[] = [
       "Feels politicians promise 'things will improve' but nothing changes; may worry you're just 'another career politician'",
     personality:
       "Practical, tired, wants real solutions. Will listen but needs concrete examples of how you'll make her life easier.",
+    vapiAssistantId: "ff352203-1fa8-45bd-ae02-0f33d3fa5162",
   },
   {
     id: "easy-2",
@@ -43,7 +44,8 @@ export const voterProfiles: VoterProfile[] = [
       "Thinks candidates talk too much about 'big ideas' and not about how small business survives; maybe you're too big-government",
     personality:
       "Friendly but skeptical. Wants to hear about practical support for small businesses, not bureaucracy.",
-  },
+      vapiAssistantId: "cadd4c1a-bc87-4832-851d-c4ece1460408",
+    },
   {
     id: "easy-3",
     name: "Retired Senior - Staten Island",
@@ -64,6 +66,7 @@ export const voterProfiles: VoterProfile[] = [
       "Thinks younger candidates don't respect 'how things used to be', worries you're from the 'political class'",
     personality:
       "Respectful but wants assurance that their concerns matter. Values experience and proven track records.",
+      vapiAssistantId: "fceaa454-55f6-459a-a35b-c1d2a2bfcbc3",
   },
 
   // MEDIUM PROFILES
@@ -108,6 +111,7 @@ export const voterProfiles: VoterProfile[] = [
       "Feels politics ignore immigrant communities, may not trust established politicians, may feel you're not truly representing them",
     personality:
       "Hopeful but guarded. Needs to feel heard and understood. Cultural sensitivity is crucial. Family-focused.",
+      vapiAssistantId: "f2fb61a9-222a-4679-be26-4a71111fb306",
   },
 
   // HARD PROFILES
@@ -131,6 +135,7 @@ export const voterProfiles: VoterProfile[] = [
       "Thinks you're 'just another politician', 'the same old talk', maybe worse. Might say: 'Why vote? Nothing's changed.'",
     personality:
       "Angry, frustrated, cynical. Will challenge everything you say. Needs to be convinced you're genuinely different.",
+      vapiAssistantId: "9dcea913-5345-4f4f-93b4-e0794c675f2d",
   },
   {
     id: "hard-2",
@@ -154,6 +159,55 @@ export const voterProfiles: VoterProfile[] = [
     personality:
       "Firm in beliefs, traditional values. Will be polite but unmovable unless you address their concerns directly. Skeptical of progressive policies.",
   },
+
+  {
+    id: "hard-3",
+    name: "Andrew Cuomo",
+    difficulty: "hard",
+    description: "Mayoral Candidate",
+    age: "Late 60s",
+    location: "Queens",
+    occupation: "Retired or semi-retired",
+    income: "Moderate",
+    votingHistory: "Independent or conservative, may lean Republican",
+    keyIssues: [
+      "taxing the rich",
+      "Property taxes",
+      "immigration",
+      "Over-regulation",
+      "City catering to 'others'",
+    ],
+    skepticism:
+      "Seems you're too liberal, too city-elite, may distrust government intrusiveness, may lean Republican or non-voting",
+    personality:
+      "Firm in beliefs, traditional values. Will be polite but unmovable unless you address their concerns directly. Skeptical of progressive policies.",
+      vapiAssistantId: "cde00b8a-3ebf-4d4f-8587-7e8fec8e5fda",
+  },
+
+  {
+    id: "hard-",
+    name: "Bernie Sanders: Independent Candidate",
+    difficulty: "hard",
+    description: "Hates both left and right",
+    age: "mid 80s",
+    location: "Brooklyn",
+    occupation: "Retired or semi-retired",
+    income: "Moderate",
+    votingHistory: "Independent or conservative, may lean Republican",
+    keyIssues: [
+      "current system doesn't tax the rich enough",
+      "lower taxes",
+      "Uncontrolled development",
+      "socialism",
+      "city is turning intolerant",
+    ],
+    skepticism:
+      "Seems you're too liberal, too city-elite, may distrust government intrusiveness, may lean Republican or non-voting",
+    personality:
+      "Firm in beliefs, traditional values. Will be polite but unmovable unless you address their concerns directly. Skeptical of progressive policies.",
+      vapiAssistantId: "d39d6278-399a-4abc-9540-6de073282a29",
+  },
+
 ];
 
 export function getProfilesByDifficulty(difficulty: "easy" | "medium" | "hard") {
