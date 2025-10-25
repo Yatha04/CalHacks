@@ -1,0 +1,32 @@
+{
+  "name": "phone-banker-training",
+  "version": "1.0.0",
+  "description": "LeetCode-style training platform for phone bank volunteers",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.x",
+    "@vapi-ai/web": "^2.x",
+    "lucide-react": "^0.x",
+    "clsx": "^2.x",
+    "tailwind-merge": "^2.x",
+    "next": "^16.x",
+    "react": "^19.x",
+    "react-dom": "^19.x"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/react": "^19.x",
+    "@types/react-dom": "^19.x",
+    "typescript": "^5.x",
+    "@tailwindcss/postcss": "^4.x",
+    "tailwindcss": "^4.x",
+    "eslint": "^9.x",
+    "eslint-config-next": "^16.x"
+  }
+}
+
