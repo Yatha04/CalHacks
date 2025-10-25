@@ -49,18 +49,18 @@ export default function DashboardPage() {
       {stats.totalCalls === 0 && (
         <div className="bg-white">
           <div className="container mx-auto px-4 py-6">
-            <Card className="max-w-14xl mx-auto border-2 border-black hover:border-blue-600 transition-all shadow-[0_8px_0_0_rgba(0,0,0,1)] hover:shadow-[0_12px_0_0_rgba(59,130,246,1)] bg-white">
+            <Card className="max-w-14xl mx-auto border-2 border-black hover:border-blue-400 transition-all shadow-[0_8px_0_0_rgba(0,0,0,1)] hover:shadow-[0_12px_0_0_rgba(59,130,246,1)] bg-blue-600">
               <CardHeader>
-                <CardTitle className="text-black font-bold text-xl">👋 Welcome! Ready to get started?</CardTitle>
+                <CardTitle className="text-white font-bold text-xl">👋 Welcome! Ready to get started?</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-700">
+                <p className="text-blue-100">
                   This platform helps you practice phone banking conversations
                   with realistic AI-powered voter simulations.
                 </p>
                 <div className="space-y-2">
-                  <p className="font-semibold text-black">Quick Tips:</p>
-                  <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+                  <p className="font-semibold text-white">Quick Tips:</p>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-blue-100">
                     <li>
                       Start with <span className="font-semibold">Easy</span>{" "}
                       profiles to build confidence
