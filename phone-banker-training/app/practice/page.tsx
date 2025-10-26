@@ -37,7 +37,7 @@ function PracticeContent() {
     );
   }
 
-  const handleCallEnd = async (transcript: string, duration: number) => {
+  const handleCallEnd = async (transcript: string, duration: number, vapiCallId?: string) => {
     // Analyze the call performance
     const metrics = await analyzeCallPerformance(
       transcript,
@@ -57,8 +57,13 @@ function PracticeContent() {
     setPerformanceMetrics(fullMetrics);
     setStage("report");
 
-    // TODO: Save to Supabase
-    // await saveCallSession(...)
+    // TODO: Save to Supabase with Vapi call ID
+    // await saveCallSession({
+    //   userId: "user-id",
+    //   voterProfileId: profile.id,
+    //   startTime: new Date(),
+    //   vapiCallId: vapiCallId
+    // })
     // await savePerformanceMetrics(...)
   };
 

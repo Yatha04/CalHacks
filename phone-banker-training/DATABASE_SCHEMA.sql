@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS call_sessions (
   duration INTEGER, -- in seconds
   transcript TEXT,
   vapi_call_id TEXT,
+  recording_url TEXT,
+  recording_fetched_at TIMESTAMP WITH TIME ZONE,
   status TEXT NOT NULL CHECK (status IN ('in-progress', 'completed', 'abandoned')),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
