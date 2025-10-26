@@ -15,10 +15,10 @@ export default function HomePage() {
             PhoneBanker
           </h1>
           <h2 className="text-2xl font-semibold mb-6 text-blue-600">
-            Master the Art of Phone Banking with Agentic AI voter simulations
+            Master the Art of Political Phone Banking
           </h2>
           <p className="text-xl text-gray-700 mb-8">
-            Practice, build confidence, and deliver the vote. 
+            Because every phone call makes a difference.
           </p>
           <Link href="/dashboard">
             <Button size="lg" className="gap-2 text-lg px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all">

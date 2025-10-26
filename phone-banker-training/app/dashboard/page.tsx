@@ -55,7 +55,7 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-blue-100">
-                  This platform helps you practice phone banking conversations
+                  This platform helps you practice political phone banking conversations
                   with realistic AI-powered voter simulations.
                 </p>
                 <div className="space-y-2">
@@ -162,8 +162,8 @@ export default function DashboardPage() {
             onClick={() => setSelectedDifficulty("easy")}
             className={
               selectedDifficulty === "easy"
-                ? "bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
-                : "bg-white hover:bg-blue-50 text-black border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+                ? "bg-green-200 hover:bg-green-300 text-green-800 font-bold border-2 border-green-400 shadow-[0_4px_0_0_rgba(34,197,94,1)] hover:shadow-[0_6px_0_0_rgba(34,197,94,1)] transition-all"
+                : "bg-green-50 hover:bg-green-100 text-green-700 border-2 border-green-200 shadow-[0_4px_0_0_rgba(34,197,94,1)] hover:shadow-[0_6px_0_0_rgba(34,197,94,1)] transition-all"
             }
           >
             Easy
@@ -173,8 +173,8 @@ export default function DashboardPage() {
             onClick={() => setSelectedDifficulty("medium")}
             className={
               selectedDifficulty === "medium"
-                ? "bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
-                : "bg-white hover:bg-blue-50 text-black border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+                ? "bg-yellow-200 hover:bg-yellow-300 text-yellow-800 font-bold border-2 border-yellow-400 shadow-[0_4px_0_0_rgba(234,179,8,1)] hover:shadow-[0_6px_0_0_rgba(234,179,8,1)] transition-all"
+                : "bg-yellow-50 hover:bg-yellow-100 text-yellow-700 border-2 border-yellow-200 shadow-[0_4px_0_0_rgba(234,179,8,1)] hover:shadow-[0_6px_0_0_rgba(234,179,8,1)] transition-all"
             }
           >
             Medium
@@ -184,8 +184,8 @@ export default function DashboardPage() {
             onClick={() => setSelectedDifficulty("hard")}
             className={
               selectedDifficulty === "hard"
-                ? "bg-blue-600 hover:bg-blue-700 text-white font-bold border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
-                : "bg-white hover:bg-blue-50 text-black border-2 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] hover:shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all"
+                ? "bg-red-200 hover:bg-red-300 text-red-800 font-bold border-2 border-red-400 shadow-[0_4px_0_0_rgba(239,68,68,1)] hover:shadow-[0_6px_0_0_rgba(239,68,68,1)] transition-all"
+                : "bg-red-50 hover:bg-red-100 text-red-700 border-2 border-red-200 shadow-[0_4px_0_0_rgba(239,68,68,1)] hover:shadow-[0_6px_0_0_rgba(239,68,68,1)] transition-all"
             }
           >
             Hard
@@ -235,12 +235,12 @@ export default function DashboardPage() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
-                      className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full border-2 border-black shadow-[0_2px_0_0_rgba(0,0,0,1)] ${
+                      className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full border-2 shadow-[0_2px_0_0_rgba(0,0,0,1)] ${
                         profile.difficulty === "easy"
-                          ? "bg-blue-100 text-blue-800"
+                          ? "bg-green-100 text-green-800 border-green-300"
                           : profile.difficulty === "medium"
-                          ? "bg-blue-200 text-blue-900"
-                          : "bg-blue-300 text-blue-900"
+                          ? "bg-yellow-100 text-yellow-800 border-yellow-300"
+                          : "bg-red-100 text-red-800 border-red-300"
                       }`}
                     >
                       {profile.difficulty === "easy"
