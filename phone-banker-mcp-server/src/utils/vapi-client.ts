@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 interface VapiCallResponse {
   id: string;
   status: string;
@@ -33,7 +34,7 @@ export class VapiClient {
       throw new Error(`Failed to fetch call details: ${response.status} ${response.statusText}`);
     }
 
-    return await response.json();
+    return await response.json() as VapiCallResponse;
   }
 
   async getRecordingUrl(callId: string): Promise<string | null> {

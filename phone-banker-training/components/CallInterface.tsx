@@ -31,13 +31,16 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
       vapiRef.current = createVapiClient();
       
       // Set up event listeners
-      vapiRef.current.on("call-start", (call: any) => {
+      // Replace the "call-start" handler and add "call-start-success"
+      vapiRef.current.on("call-start", () => {
         setCallStatus("connected");
         startTimer();
-        // Capture Vapi call ID
-        if (call?.id) {
-          vapiCallIdRef.current = call.id;
-          console.log("Vapi call ID captured:", call.id);
+      });
+
+      vapiRef.current.on("call-start-success", (event) => {
+        if (event?.callId) {
+          vapiCallIdRef.current = event.callId;
+          console.log("Vapi call ID captured:", event.callId);
         }
       });
 
