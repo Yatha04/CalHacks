@@ -147,7 +147,7 @@ export function AuthForm({ mode, onModeChange, onSuccess }: AuthFormProps) {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-gray-500"
                 placeholder="Enter your password"
-                required={mode !== 'reset'}
+                required
                 minLength={6}
                 autoComplete="current-password"
               />
