@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Phone } from "lucide-react";
+import { useAuth } from "@/lib/auth";
+import { UserProfile } from "@/components/auth/UserProfile";
 
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useAuth();
 
   const isActive = (path: string) => {
     return pathname === path;
@@ -60,14 +63,16 @@ export function Header() {
             >
               How It Works
             </a>
-            <Link
-              href="/dashboard"
-              className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                isActive("/dashboard") ? "text-blue-600" : "text-gray-700"
-              }`}
-            >
-              Start Now
-            </Link>
+            {user && (
+              <Link
+                href="/dashboard"
+                className={`text-sm font-medium transition-colors hover:text-blue-600 ${
+                  isActive("/dashboard") ? "text-blue-600" : "text-gray-700"
+                }`}
+              >
+                Dashboard
+              </Link>
+            )}
             <Link
               href="/contact"
               className={`text-sm font-medium transition-colors hover:text-blue-600 ${
@@ -77,6 +82,20 @@ export function Header() {
               Contact Us
             </Link>
           </nav>
+
+          {/* User Profile or Sign In */}
+          <div className="ml-4">
+            {user ? (
+              <UserProfile />
+            ) : (
+              <Link
+                href="/dashboard"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+              >
+                Start Now
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </header>

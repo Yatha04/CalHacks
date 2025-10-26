@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { voterProfiles, getProfilesByDifficulty } from "@/lib/voterProfiles";
 import { Trophy, TrendingUp, Phone as PhoneIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -32,7 +33,8 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white">
         <div className="container mx-auto px-4 py-6">
@@ -267,5 +269,6 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

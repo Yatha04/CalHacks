@@ -2,14 +2,17 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn("Supabase credentials not found. Database features will be disabled.");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Only create client if credentials are available
+export const supabase = supabaseUrl && supabaseAnonKey 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 // Database helper functions
 
@@ -19,6 +22,11 @@ export async function saveCallSession(session: {
   startTime: Date;
   vapiCallId?: string;
 }) {
+  if (!supabase) {
+    console.warn("Supabase not configured. Call session not saved.");
+    return null;
+  }
+
   const { data, error } = await supabase
     .from("call_sessions")
     .insert({
@@ -44,6 +52,11 @@ export async function updateCallSession(
     status?: "completed" | "abandoned";
   }
 ) {
+  if (!supabase) {
+    console.warn("Supabase not configured. Call session not updated.");
+    return null;
+  }
+
   const { data, error } = await supabase
     .from("call_sessions")
     .update({
@@ -61,6 +74,11 @@ export async function updateCallSession(
 }
 
 export async function updateCallRecordingUrl(sessionId: string, recordingUrl: string) {
+  if (!supabase) {
+    console.warn("Supabase not configured. Recording URL not updated.");
+    return null;
+  }
+
   const { data, error } = await supabase
     .from("call_sessions")
     .update({
@@ -88,6 +106,11 @@ export async function savePerformanceMetrics(metrics: {
   keyMoments: unknown[];
   sentiment: string;
 }) {
+  if (!supabase) {
+    console.warn("Supabase not configured. Performance metrics not saved.");
+    return null;
+  }
+
   const { data, error } = await supabase
     .from("performance_metrics")
     .insert({
@@ -111,6 +134,11 @@ export async function savePerformanceMetrics(metrics: {
 }
 
 export async function getUserProgress(userId: string) {
+  if (!supabase) {
+    console.warn("Supabase not configured. User progress not retrieved.");
+    return [];
+  }
+
   const { data, error } = await supabase
     .from("call_sessions")
     .select("*, performance_metrics(*)")

@@ -1,9 +1,9 @@
 -- Database schema for Phone Banker Training Platform
 -- Run this in your Supabase SQL editor to set up the database
 
--- Users table (optional - can integrate with Supabase Auth)
+-- Users table (integrates with Supabase Auth)
 CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   email TEXT UNIQUE,
   name TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -54,9 +54,24 @@ ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE call_sessions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE performance_metrics ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist (to avoid conflicts)
+DROP POLICY IF EXISTS "Users can view own data" ON users;
+DROP POLICY IF EXISTS "Users can insert own data" ON users;
+DROP POLICY IF EXISTS "Users can update own data" ON users;
+DROP POLICY IF EXISTS "Users can view own call sessions" ON call_sessions;
+DROP POLICY IF EXISTS "Users can view own performance metrics" ON performance_metrics;
+
 -- Users can read their own data
 CREATE POLICY "Users can view own data" ON users
   FOR SELECT USING (auth.uid() = id);
+
+-- Users can insert their own profile during signup
+CREATE POLICY "Users can insert own data" ON users
+  FOR INSERT WITH CHECK (auth.uid() = id);
+
+-- Users can update their own profile
+CREATE POLICY "Users can update own data" ON users
+  FOR UPDATE USING (auth.uid() = id);
 
 -- Users can view their own call sessions
 CREATE POLICY "Users can view own call sessions" ON call_sessions

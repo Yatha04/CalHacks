@@ -54,36 +54,67 @@ npm install
 
 ### 2. Set Up Environment Variables
 
-Copy the example environment file:
-
-```bash
-cp .env.example .env.local
-```
-
-Edit `.env.local` with your credentials:
+Create a `.env.local` file in the root directory with your credentials:
 
 ```env
-# Vapi Configuration
-NEXT_PUBLIC_VAPI_PUBLIC_KEY=your_vapi_public_key_here
-
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
+# Supabase Configuration (Required for authentication)
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url_here
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+
+# Vapi Configuration (Optional - for voice calls)
+NEXT_PUBLIC_VAPI_PUBLIC_KEY=your_vapi_public_key_here
 ```
+
+**Important**: 
+- Get your Supabase credentials from your project dashboard under Settings > API
+- The Supabase credentials are required for the authentication system to work
+- Vapi credentials are optional - the app will work without them but voice calls will be disabled
 
 ### 3. Set Up Supabase Database
 
 1. Create a new Supabase project at https://supabase.com
 2. Go to the SQL Editor in your Supabase dashboard
 3. Copy and run the SQL from `DATABASE_SCHEMA.sql`
-4. This will create all necessary tables, indexes, and functions
+4. This will create all necessary tables, indexes, functions, and RLS policies
+
+**Note**: If you're upgrading from an older version or encounter user profile creation errors, check the `migrations/` folder for update scripts.
 
 ### 4. Configure Vapi
 
 1. Sign up at https://dashboard.vapi.ai
 2. Get your Public Key from the dashboard
-3. (Optional) Pre-configure assistants for each voter profile for better performance
-4. Add your public key to `.env.local`
+3. Add your public key to `.env.local`
+
+#### Option A: Use Inline Configuration (Simpler, but may have issues)
+The app will automatically create assistant configurations on-the-fly using the voter profiles. This works but may be less reliable.
+
+#### Option B: Pre-configured Assistants (Recommended for Production)
+For better reliability and performance, create assistants in the Vapi Dashboard:
+
+1. Go to https://dashboard.vapi.ai/assistants
+2. Click "Create Assistant"
+3. Configure the assistant:
+   - **Name**: e.g., "Voter: Working Mom - Queens"
+   - **Model**: OpenAI GPT-3.5-turbo or GPT-4
+   - **System Prompt**: Copy the voter's personality/description from `lib/voterProfiles.ts`
+   - **Voice**: Choose Azure, PlayHT, or ElevenLabs voice
+   - **First Message**: "Hello?"
+   - **Recording**: Enable
+4. Copy the Assistant ID
+5. Add `vapiAssistantId: "your-assistant-id"` to the voter profile in `lib/voterProfiles.ts`
+
+**Example voter profile with pre-configured assistant:**
+```typescript
+{
+  id: "working-mom",
+  name: "Working Mom - Queens",
+  vapiAssistantId: "asst_abc123...",  // Add this line
+  difficulty: "Easy",
+  // ... rest of profile
+}
+```
+
+**Troubleshooting**: If you see "ejection" errors, this usually means the inline configuration is invalid. Use pre-configured assistants instead.
 
 ### 5. Run the Development Server
 
@@ -218,6 +249,44 @@ The app is a standard Next.js application and can be deployed to:
 - Implement proper authentication before production deployment
 - Consider rate limiting for API calls
 - Review and audit AI-generated content
+
+## 🐛 Troubleshooting
+
+### "Error creating user profile" during signup
+
+If you encounter this error, it means your database is missing the required RLS (Row Level Security) policies for user profile creation.
+
+**Fix**: Run the migration script in your Supabase SQL Editor:
+1. Go to your Supabase dashboard > SQL Editor
+2. Copy and run the SQL from `migrations/fix_user_rls_policies.sql`
+3. This adds the necessary INSERT and UPDATE policies for the users table
+
+Alternatively, if you're setting up a new database, make sure you run the complete `DATABASE_SCHEMA.sql` which includes all required policies.
+
+### Voice calls not working
+
+**Error: "Vapi error: {}" or configuration errors**
+
+This error occurs when the Vapi public key is not configured:
+
+1. Create a `.env.local` file in the `phone-banker-training/` directory
+2. Add the following line: `NEXT_PUBLIC_VAPI_PUBLIC_KEY=your_vapi_public_key_here`
+3. Get your public key from https://dashboard.vapi.ai (Settings > API Keys)
+4. Restart your development server (`npm run dev`)
+
+**Other voice call issues:**
+
+- Check browser console for detailed Vapi error messages
+- Ensure you have microphone permissions enabled in your browser
+- Verify your Vapi account has sufficient credits
+- Try refreshing the page and starting a new call
+
+### Authentication issues
+
+- Verify Supabase URL and anon key are correctly set in `.env.local`
+- Check that the database schema has been applied
+- Ensure RLS policies are properly configured
+- Try clearing browser cookies and cache
 
 ## 🤝 Contributing
 

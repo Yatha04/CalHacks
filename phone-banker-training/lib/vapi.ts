@@ -8,7 +8,27 @@ if (!vapiPublicKey) {
   console.warn("Vapi public key not found. Voice features will be disabled.");
 }
 
+/**
+ * Check if Vapi is properly configured with a valid public key
+ */
+export function isVapiConfigured(): boolean {
+  return vapiPublicKey.length > 0;
+}
+
+/**
+ * Get configuration error message if Vapi is not configured
+ */
+export function getVapiConfigError(): string | null {
+  if (!vapiPublicKey) {
+    return "Vapi is not configured. Please add NEXT_PUBLIC_VAPI_PUBLIC_KEY to your .env.local file. See README.md for setup instructions.";
+  }
+  return null;
+}
+
 export function createVapiClient() {
+  if (!vapiPublicKey) {
+    throw new Error(getVapiConfigError() || "Vapi public key is missing");
+  }
   return new Vapi(vapiPublicKey);
 }
 
@@ -45,14 +65,7 @@ export function createVoterAssistantConfig(voterProfile: {
   keyIssues: string[];
   skepticism: string;
 }): any {
-  return {
-    model: {
-      provider: "openai" as const,
-      model: "gpt-4" as const,
-      messages: [
-        {
-          role: "system" as const,
-          content: `You are roleplaying as a voter in a phone banking scenario. 
+  const systemPrompt = `You are roleplaying as a voter in a phone banking scenario. 
 
 VOTER PROFILE:
 Name: ${voterProfile.name}
@@ -73,20 +86,28 @@ INSTRUCTIONS:
 - If they ignore your concerns or give generic answers, express frustration and anger.
 - Speak conversationally, like a real phone call
 
-Remember: You are NOT an AI assistant. You are this specific voter answering a call from a political campaign volunteer.`,
+Remember: You are NOT an AI assistant. You are this specific voter answering a call from a political campaign volunteer.`;
+
+  return {
+    name: `Voter: ${voterProfile.name}`,
+    model: {
+      provider: "openai",
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt,
         },
       ],
     },
     voice: {
-      provider: "11labs" as const,
-      voiceId: "21m00Tcm4TlvDq8ikWAM", // Default voice, can be customized
+      provider: "azure",
+      voiceId: "andrew",
     },
-    name: `Voter: ${voterProfile.name}`,
     firstMessage: "Hello?",
-    endCallMessage: "Thanks for calling. Goodbye.",
     recordingEnabled: true,
     silenceTimeoutSeconds: 30,
-    maxDurationSeconds: 600, // 10 minutes max
+    maxDurationSeconds: 600,
   };
 }
 
