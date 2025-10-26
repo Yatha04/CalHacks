@@ -1,8 +1,8 @@
 {
-  "name": "phone-banker-mcp-server",
+  "name": "grassroots-mcp-server",
   "version": "1.1.0",
-  "description": "MCP server for Phone Banking API",
-  "mcpName": "io.github.r-huijts/phone-banker-mcp",
+  "description": "MCP server for Grassroots Training API",
+  "mcpName": "io.github.r-huijts/grassroots-mcp",
   "repository": {
     "type": "git",
     "url": "https://github.com/Yatha04/CalHacks.git"

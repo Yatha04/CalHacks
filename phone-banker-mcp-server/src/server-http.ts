@@ -62,7 +62,7 @@ app.get("/debug/auth", (req, res) => {
 // MCP Server setup
 const server = new Server(
   {
-    name: "phone-banker-mcp-server",
+    name: "grassroots-mcp-server",
     version: "1.0.0",
   },
   {
@@ -178,7 +178,7 @@ app.get("/sse", async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Phone Banking MCP Server running on port ${PORT}`);
+  console.log(`Grassroots MCP Server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/health`);
   console.log(`SSE endpoint: http://localhost:${PORT}/sse`);
 });

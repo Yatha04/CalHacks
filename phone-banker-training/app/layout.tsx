@@ -23,7 +23,7 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Phone Banker Training Platform",
+  title: "Grassroots Training Platform",
   description: "LeetCode-style training platform for mayoral election phone bank volunteers. Practice realistic voter conversations with AI-powered simulations.",
 };
 

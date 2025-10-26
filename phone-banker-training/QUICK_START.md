@@ -1,13 +1,13 @@
 # Quick Start Guide
 
-Get up and running with the Phone Banker Training Platform in 10 minutes!
+Get up and running with the Grassroots Training Platform in 10 minutes!
 
 ## ⚡ Super Quick Setup (Development Mode)
 
 If you want to explore the platform without setting up external services:
 
 ```bash
-cd phone-banker-training
+cd grassroots-training
 npm install
 npm run dev
 ```
@@ -26,7 +26,7 @@ Open http://localhost:3000
 ### 1. Install Dependencies (1 minute)
 
 ```bash
-cd phone-banker-training
+cd grassroots-training
 npm install
 ```
 
@@ -80,7 +80,7 @@ Visit http://localhost:3000
 3. Read a profile carefully before calling
 4. Practice with "Working Mom - Queens" first (most supportive)
 
-### For Experienced Phone Bankers
+### For Experienced Grassroots Organizers
 1. Skip Easy profiles and go straight to Medium/Hard
 2. Try "Disillusioned Former Democrat" for a real challenge
 3. Focus on the performance analytics after each call

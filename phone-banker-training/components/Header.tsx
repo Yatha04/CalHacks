@@ -43,7 +43,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Phone className="w-6 h-6 text-blue-600" />
-            <span className="text-xl font-bold text-black">PhoneBanker</span>
+            <span className="text-xl font-bold text-black">Grassroots</span>
           </Link>
 
           {/* Navigation */}

@@ -1,4 +1,4 @@
-# Phone Banker Training Platform
+# Grassroots Training Platform
 
 A LeetCode-style training platform for mayoral election phone bank volunteers. Practice realistic voter conversations with AI-powered voice agents across multiple difficulty levels, and receive detailed performance analytics.
 
@@ -38,7 +38,7 @@ A LeetCode-style training platform for mayoral election phone bank volunteers. P
 ### 1. Clone and Install
 
 ```bash
-cd phone-banker-training
+cd grassroots-training
 npm install
 ```
 

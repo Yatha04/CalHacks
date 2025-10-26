@@ -12,7 +12,7 @@ export default function HomePage() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h1 className="text-6xl font-bold mb-4 text-black">
-            PhoneBanker
+            Grassroots
           </h1>
           <h2 className="text-2xl font-semibold mb-6 text-blue-600">
             Master the Art of Political Phone Banking

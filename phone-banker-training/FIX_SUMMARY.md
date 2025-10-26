@@ -44,12 +44,12 @@ The `users` table had RLS enabled but only included a SELECT policy. When new us
 2. All policies are now included automatically
 
 ## Files Modified
-- `phone-banker-training/DATABASE_SCHEMA.sql` - Added RLS policies
-- `phone-banker-training/lib/auth.tsx` - Improved error logging
-- `phone-banker-training/README.md` - Added troubleshooting documentation
+- `grassroots-training/DATABASE_SCHEMA.sql` - Added RLS policies
+- `grassroots-training/lib/auth.tsx` - Improved error logging
+- `grassroots-training/README.md` - Added troubleshooting documentation
 
 ## Files Created
-- `phone-banker-training/migrations/fix_user_rls_policies.sql` - Migration script
+- `grassroots-training/migrations/fix_user_rls_policies.sql` - Migration script
 - `phone-banker-training/FIX_SUMMARY.md` - This summary document
 
 ## Testing

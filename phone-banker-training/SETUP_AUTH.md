@@ -8,7 +8,7 @@
 2. Sign up or log in to your account
 3. Click "New Project"
 4. Choose your organization and enter project details:
-   - Name: `phone-banker-training` (or any name you prefer)
+   - Name: `grassroots-training` (or any name you prefer)
    - Database Password: Choose a strong password
    - Region: Choose the closest region to your users
 5. Click "Create new project"

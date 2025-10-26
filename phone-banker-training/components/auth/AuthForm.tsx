@@ -86,7 +86,7 @@ export function AuthForm({ mode, onModeChange, onSuccess }: AuthFormProps) {
             {mode === 'reset' && 'Reset Password'}
           </h2>
           <p className="text-gray-700 mt-2">
-            {mode === 'signin' && 'Welcome back to Phone Banker Training'}
+            {mode === 'signin' && 'Welcome back to Grassroots Training'}
             {mode === 'signup' && 'Start your phone banking journey'}
             {mode === 'reset' && 'Enter your email to reset your password'}
           </p>

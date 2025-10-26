@@ -1,6 +1,6 @@
-# Phone Banking MCP Server
+# Grassroots MCP Server
 
-An MCP (Model Context Protocol) server that exposes phone banking training call recordings and transcripts to Poke/Claude for AI-powered critiques.
+An MCP (Model Context Protocol) server that exposes grassroots training call recordings and transcripts to Poke/Claude for AI-powered critiques.
 
 ## Features
 
@@ -69,7 +69,7 @@ npm start
 
 Or manually:
 ```bash
-gcloud run deploy phone-banker-mcp \
+gcloud run deploy grassroots-mcp \
   --source . \
   --region us-central1 \
   --allow-unauthenticated \
@@ -86,8 +86,8 @@ Add to your Poke configuration:
 ```json
 {
   "mcpServers": {
-    "phone-banking": {
-      "url": "https://phone-banker-mcp-xxxxx.run.app",
+    "grassroots-training": {
+      "url": "https://grassroots-mcp-xxxxx.run.app",
       "apiKey": "your-mcp-api-key",
       "transport": "sse"
     }
@@ -190,7 +190,7 @@ src/
 
 View Cloud Run logs:
 ```bash
-gcloud logs read --service=phone-banker-mcp --limit=50
+gcloud logs read --service=grassroots-mcp --limit=50
 ```
 
 ## License

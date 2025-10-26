@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Phone Banking MCP Server Deployment Script
+# Grassroots MCP Server Deployment Script
 # Deploys to Google Cloud Run
 
 set -e
 
-echo "🚀 Deploying Phone Banking MCP Server to Google Cloud Run..."
+echo "🚀 Deploying Grassroots MCP Server to Google Cloud Run..."
 
 # Check if gcloud is installed
 if ! command -v gcloud &> /dev/null; then
@@ -35,7 +35,7 @@ fi
 echo "📦 Building and deploying to project: $GOOGLE_CLOUD_PROJECT"
 
 # Deploy to Cloud Run
-gcloud run deploy phone-banker-mcp \
+gcloud run deploy grassroots-mcp \
   --source . \
   --region us-central1 \
   --allow-unauthenticated \
@@ -52,10 +52,10 @@ gcloud run deploy phone-banker-mcp \
 echo "✅ Deployment complete!"
 echo ""
 echo "🔗 Your MCP server is now available at:"
-gcloud run services describe phone-banker-mcp --region us-central1 --format="value(status.url)"
+gcloud run services describe grassroots-mcp --region us-central1 --format="value(status.url)"
 
 echo ""
 echo "📋 Next steps:"
-echo "1. Test the health endpoint: curl \$(gcloud run services describe phone-banker-mcp --region us-central1 --format='value(status.url)')/health"
+echo "1. Test the health endpoint: curl \$(gcloud run services describe grassroots-mcp --region us-central1 --format='value(status.url)')/health"
 echo "2. Configure Poke with the SSE endpoint URL and your MCP_API_KEY"
 echo "3. Start using the MCP tools in Poke!"
