@@ -80,7 +80,7 @@ export function AuthForm({ mode, onModeChange, onSuccess }: AuthFormProps) {
     <Card className="w-full max-w-md mx-auto p-6">
       <div className="space-y-6">
         <div className="text-center">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold text-gray-900">
             {mode === 'signin' && 'Sign In'}
             {mode === 'signup' && 'Create Account'}
             {mode === 'reset' && 'Reset Password'}
@@ -181,7 +181,7 @@ export function AuthForm({ mode, onModeChange, onSuccess }: AuthFormProps) {
             <Button
               type="button"
               variant="outline"
-              className="w-full"
+              className="w-full text-gray-900"
               onClick={handleGoogleSignIn}
               disabled={loading}
             >
@@ -203,7 +203,7 @@ export function AuthForm({ mode, onModeChange, onSuccess }: AuthFormProps) {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Continue with Google
+              <span className="font-bold">Continue with Google</span>
             </Button>
           </>
         )}
