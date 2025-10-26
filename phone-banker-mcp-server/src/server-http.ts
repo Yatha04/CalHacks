@@ -45,6 +45,20 @@ app.get("/health", (req, res) => {
   });
 });
 
+// Debug endpoint to check if MCP_API_KEY is set (DO NOT expose in production)
+app.get("/debug/auth", (req, res) => {
+  const hasApiKey = !!process.env.MCP_API_KEY;
+  const apiKeyLength = process.env.MCP_API_KEY?.length || 0;
+  const apiKeyPrefix = process.env.MCP_API_KEY?.substring(0, 8) || "not-set";
+  
+  res.json({
+    hasApiKey,
+    apiKeyLength,
+    apiKeyPrefix: apiKeyPrefix + "...",
+    message: "Check if this matches what you're sending"
+  });
+});
+
 // MCP Server setup
 const server = new Server(
   {
