@@ -132,8 +132,25 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
+// OPTIONS endpoint for CORS preflight
+app.options("/sse", (req, res) => {
+  res.status(200).end();
+});
+
 // SSE endpoint for MCP
-app.get("/sse", authenticateApiKey, async (req, res) => {
+app.get("/sse", async (req, res) => {
+  // Check for API key in Authorization header or query parameter
+  const authHeader = req.headers.authorization?.replace("Bearer ", "");
+  const queryApiKey = req.query.apiKey as string;
+  const apiKey = authHeader || queryApiKey;
+  const expectedApiKey = process.env.MCP_API_KEY;
+  
+  // If MCP_API_KEY is configured, validate it
+  if (expectedApiKey && apiKey !== expectedApiKey) {
+    console.log("SSE connection rejected: Invalid or missing API key");
+    return res.status(401).json({ error: "Invalid or missing API key" });
+  }
+  
   console.log("New SSE connection established");
   
   const transport = new SSEServerTransport("/sse", res);
