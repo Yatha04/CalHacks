@@ -1,0 +1,164 @@
+// Load environment variables FIRST
+import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import cors from "cors";
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import { listCallSessionsTool, listCallSessions } from "./tools/list-call-sessions.js";
+import { getCallDetailsTool, getCallDetails } from "./tools/get-call-details.js";
+import { getCallRecordingTool, getCallRecording } from "./tools/get-call-recording.js";
+import { getUserProgressTool, getUserProgress } from "./tools/get-user-progress.js";
+
+const app = express();
+const PORT = process.env.PORT || 8080;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// API Key authentication middleware
+function authenticateApiKey(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const apiKey = req.headers.authorization?.replace("Bearer ", "");
+  const expectedApiKey = process.env.MCP_API_KEY;
+  
+  if (!expectedApiKey) {
+    return res.status(500).json({ error: "Server not configured with API key" });
+  }
+  
+  if (!apiKey || apiKey !== expectedApiKey) {
+    return res.status(401).json({ error: "Invalid or missing API key" });
+  }
+  
+  next();
+}
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.json({ 
+    status: "healthy", 
+    timestamp: new Date().toISOString(),
+    version: "1.0.0"
+  });
+});
+
+// MCP Server setup
+const server = new Server(
+  {
+    name: "phone-banker-mcp-server",
+    version: "1.0.0",
+  },
+  {
+    capabilities: {
+      tools: {},
+    },
+  }
+);
+
+// Register tools
+server.setRequestHandler(ListToolsRequestSchema, async () => {
+  return {
+    tools: [
+      listCallSessionsTool,
+      getCallDetailsTool,
+      getCallRecordingTool,
+      getUserProgressTool,
+    ],
+  };
+});
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  try {
+    switch (name) {
+      case "list-call-sessions":
+        return {
+          content: [
+            {
+              type: "text",
+              text: await listCallSessions(args as any),
+            },
+          ],
+        };
+
+      case "get-call-details":
+        return {
+          content: [
+            {
+              type: "text",
+              text: await getCallDetails(args as any),
+            },
+          ],
+        };
+
+      case "get-call-recording":
+        return {
+          content: [
+            {
+              type: "text",
+              text: await getCallRecording(args as any),
+            },
+          ],
+        };
+
+      case "get-user-progress":
+        return {
+          content: [
+            {
+              type: "text",
+              text: await getUserProgress(args as any),
+            },
+          ],
+        };
+
+      default:
+        throw new Error(`Unknown tool: ${name}`);
+    }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    return {
+      content: [
+        {
+          type: "text",
+          text: `Error: ${errorMessage}`,
+        },
+      ],
+      isError: true,
+    };
+  }
+});
+
+// SSE endpoint for MCP
+app.get("/sse", authenticateApiKey, async (req, res) => {
+  console.log("New SSE connection established");
+  
+  const transport = new SSEServerTransport("/sse", res);
+  await server.connect(transport);
+  
+  // Handle client disconnect
+  req.on("close", () => {
+    console.log("SSE connection closed");
+  });
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Phone Banking MCP Server running on port ${PORT}`);
+  console.log(`Health check: http://localhost:${PORT}/health`);
+  console.log(`SSE endpoint: http://localhost:${PORT}/sse`);
+});
+
+// Graceful shutdown
+process.on("SIGINT", () => {
+  console.log("Shutting down server...");
+  process.exit(0);
+});
+
+process.on("SIGTERM", () => {
+  console.log("Shutting down server...");
+  process.exit(0);
+});

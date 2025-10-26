@@ -60,6 +60,21 @@ export async function updateCallSession(
   return data;
 }
 
+export async function updateCallRecordingUrl(sessionId: string, recordingUrl: string) {
+  const { data, error } = await supabase
+    .from("call_sessions")
+    .update({
+      recording_url: recordingUrl,
+      recording_fetched_at: new Date().toISOString(),
+    })
+    .eq("id", sessionId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
 export async function savePerformanceMetrics(metrics: {
   sessionId: string;
   confidence: number;

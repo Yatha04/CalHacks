@@ -11,7 +11,7 @@ import Vapi from "@vapi-ai/web";
 
 interface CallInterfaceProps {
   profile: VoterProfile;
-  onCallEnd: (transcript: string, duration: number) => void;
+  onCallEnd: (transcript: string, duration: number, vapiCallId?: string) => void;
   onCancel: () => void;
 }
 
@@ -23,6 +23,7 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
   const vapiRef = useRef<Vapi | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const conversationRef = useRef<any[]>([]);
+  const vapiCallIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     // Initialize Vapi client
@@ -30,9 +31,14 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
       vapiRef.current = createVapiClient();
       
       // Set up event listeners
-      vapiRef.current.on("call-start", () => {
+      vapiRef.current.on("call-start", (call: any) => {
         setCallStatus("connected");
         startTimer();
+        // Capture Vapi call ID
+        if (call?.id) {
+          vapiCallIdRef.current = call.id;
+          console.log("Vapi call ID captured:", call.id);
+        }
       });
 
       vapiRef.current.on("call-end", () => {
@@ -55,7 +61,7 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
         console.log("Final transcript:", fullTranscript);
         
         const finalTranscript = fullTranscript || "No transcript available.";
-        onCallEnd(finalTranscript, duration);
+        onCallEnd(finalTranscript, duration, vapiCallIdRef.current || undefined);
       });
 
       vapiRef.current.on("message", (message: unknown) => {
