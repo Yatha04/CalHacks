@@ -60,7 +60,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="bg-white">
         <div className="container mx-auto px-4 py-6">
-          <div>
+          <div className="text-center">
             <h1 className="text-3xl font-bold text-black">Training Dashboard</h1>
             <p className="text-gray-600 mt-1">
               Choose a voter profile to start practicing

@@ -362,7 +362,7 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
           <div className="flex flex-col items-center space-y-6">
             {/* Status and Timer */}
             <div className="text-center">
-              <div className="text-2xl font-bold mb-2">
+              <div className="text-2xl font-bold text-gray-900 mb-2">
                 {callStatus === "idle" && "Ready to Call"}
                 {callStatus === "calling" && "Connecting..."}
                 {callStatus === "connected" && formatDuration(duration)}
@@ -387,7 +387,7 @@ export function CallInterface({ profile, onCallEnd, onCancel }: CallInterfacePro
                     <Phone className="w-5 h-5" />
                     Start Call
                   </Button>
-                  <Button onClick={onCancel} variant="outline" size="lg">
+                  <Button onClick={onCancel} variant="outline" size="lg" className="text-gray-900 font-semibold">
                     Cancel
                   </Button>
                 </>
