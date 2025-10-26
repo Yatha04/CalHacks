@@ -31,9 +31,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      
+      // Create/ensure user profile exists for existing session
+      if (session?.user) {
+        await createUserProfile(session.user);
+      }
+      
       setLoading(false);
     });
   
@@ -45,8 +51,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(session?.user ?? null);
       setLoading(false);
   
-      // Create user profile if this is a new signup
-      if (event === 'SIGNED_IN' && session?.user) {
+      // Create user profile on sign in/sign up
+      if ((event === 'SIGNED_IN' || event === 'USER_UPDATED') && session?.user) {
         await createUserProfile(session.user);
       }
     });

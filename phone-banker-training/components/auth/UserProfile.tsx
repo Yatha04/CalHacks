@@ -1,21 +1,29 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 export function UserProfile() {
   const { user, signOut } = useAuth();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const handleSignOut = async () => {
     setLoading(true);
     try {
-      await signOut();
+      const { error } = await signOut();
+      if (error) {
+        console.error('Error signing out:', error);
+        setLoading(false);
+      } else {
+        // Successful sign out - redirect to home page
+        router.push('/');
+      }
     } catch (error) {
       console.error('Error signing out:', error);
-    } finally {
       setLoading(false);
     }
   };

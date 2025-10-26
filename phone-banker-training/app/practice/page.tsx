@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { useAuth } from "@/lib/auth";
-import { saveCallSession, savePerformanceMetrics, updateCallSession } from "@/lib/supabase";
+import { saveCallSession, savePerformanceMetrics, updateCallSession, ensureUserProfile } from "@/lib/supabase";
 
 function PracticeContent() {
   const searchParams = useSearchParams();
@@ -67,6 +67,14 @@ function PracticeContent() {
     if (user) {
       try {
         console.log("💾 Saving call session to Supabase...");
+        
+        // Ensure user profile exists in database before saving call session
+        const userExists = await ensureUserProfile(user.id, user.email || undefined, user.user_metadata?.full_name || user.user_metadata?.name);
+        if (!userExists) {
+          console.error("❌ Failed to ensure user profile exists. Cannot save call session.");
+          alert("Failed to save call data. Please try logging out and back in.");
+          return;
+        }
         
         // Save call session to Supabase
         const callSession = await saveCallSession({

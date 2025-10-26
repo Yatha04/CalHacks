@@ -90,6 +90,7 @@ export const voterProfiles: VoterProfile[] = [
       "Thinks you're out of touch, maybe too 'old school' or conservative; doubts you'll support progressive values",
     personality:
       "Informed and questioning. Will push back on traditional politics. Wants specifics on progressive policies.",
+    vapiAssistantId: "YOUR_ASSISTANT_ID_HERE", // TODO: Replace with actual Vapi assistant ID
   },
   {
     id: "medium-2",
@@ -158,6 +159,7 @@ export const voterProfiles: VoterProfile[] = [
       "Seems you're too liberal, too city-elite, may distrust government intrusiveness, may lean Republican or non-voting",
     personality:
       "Firm in beliefs, traditional values. Will be polite but unmovable unless you address their concerns directly. Skeptical of progressive policies.",
+    vapiAssistantId: "YOUR_ASSISTANT_ID_HERE", // TODO: Replace with actual Vapi assistant ID
   },
 
   {
