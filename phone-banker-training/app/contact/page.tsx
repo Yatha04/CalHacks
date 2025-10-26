@@ -1,8 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Mail, MessageSquare, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -17,112 +16,19 @@ export default function ContactPage() {
             </p>
           </div>
 
-          {/* Contact Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <Card className="text-center">
+          {/* Contact Card */}
+          <div className="flex justify-center mb-12">
+            <Card className="text-center max-w-sm">
               <CardHeader>
                 <Mail className="w-8 h-8 text-blue-600 mx-auto mb-2" />
                 <CardTitle className="text-lg text-black">Email</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">support@phonebanker.com</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Phone className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                <CardTitle className="text-lg text-black">Phone</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600">(555) 123-4567</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <MessageSquare className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                <CardTitle className="text-lg text-black">Support</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600">Live Chat Available</p>
+                <p className="text-sm text-gray-600">thekyleliao@gmail.com</p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Contact Form */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-black">Send us a message</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-black mb-2"
-                  >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-black mb-2"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium text-black mb-2"
-                  >
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="How can we help?"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-black mb-2"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={6}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="Tell us more about your inquiry..."
-                  ></textarea>
-                </div>
-
-                <Button type="submit" size="lg" className="w-full">
-                  Send Message
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
 
           {/* FAQ Section */}
           <div className="mt-12">
